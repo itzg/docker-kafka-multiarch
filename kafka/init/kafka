@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -x
+
+confdir=/etc/kafka
+mkdir -p $confdir
+
+: "${KAFKA_ZOOKEEPER_CONNECT:=zk:2181}"
+: "${KAFKA_BROKER_ID:=0}"
+: "${KAFKA_LOG_DIRS:=/data}"
+: "${KAFKA_ADVERTISED_LISTENERS:=PLAINTEXT://${HOSTNAME}:9092}"
+: "${KAFKA_LISTENERS:=PLAINTEXT://0.0.0.0:9092}"
+
+rm -f $confdir/server.properties
+touch $confdir/server.properties
+for var in $(compgen -v KAFKA_); do
+  prop=${var#KAFKA_}
+  prop=${prop,,}
+  prop=${prop/_/.}
+  echo "$prop = ${!var}" >> $confdir/server.properties
+done
+
+cat $confdir/server.properties
+
+exec bin/kafka-server-start.sh $confdir/server.properties "$@"
+
+

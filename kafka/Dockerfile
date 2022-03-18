@@ -1,0 +1,23 @@
+
+FROM eclipse-temurin:17-jdk as builder
+
+ARG KAFKA_VERSION=3.1.0
+ADD https://dlcdn.apache.org/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz /packages/
+
+RUN tar -C /opt -xf /packages/kafka_2.13-${KAFKA_VERSION}.tgz
+
+RUN mv /opt/kafka_2.13-${KAFKA_VERSION} /opt/kafka
+
+FROM eclipse-temurin:17-jdk as main
+
+COPY --from=builder /opt /opt
+
+COPY init /init
+
+VOLUME /data
+
+EXPOSE 9092
+
+WORKDIR /opt/kafka
+
+ENTRYPOINT ["/init/kafka"]

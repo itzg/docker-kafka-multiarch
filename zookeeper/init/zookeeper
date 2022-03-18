@@ -1,0 +1,11 @@
+#!/bin/bash
+
+. bin/zkEnv.sh
+
+ZOOMAIN="org.apache.zookeeper.server.quorum.QuorumPeerMain"
+
+cp conf/logback.xml /etc/zookeeper
+
+exec java \
+  -XX:+HeapDumpOnOutOfMemoryError -XX:OnOutOfMemoryError='kill -9 %p' \
+  -cp \"$CLASSPATH\" $SERVER_JVMFLAGS $ZOOMAIN /etc/zookeeper/zoo.cfg

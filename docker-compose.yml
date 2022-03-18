@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  zk:
+    build:
+      context: zookeeper
+  kafka:
+    build:
+      context: kafka
