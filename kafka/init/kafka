@@ -16,9 +16,11 @@ mkdir -p $confdir
 rm -f $confdir/server.properties
 touch $confdir/server.properties
 for var in $(compgen -v KAFKA_); do
-  prop=${var#KAFKA_}
-  prop=${prop,,}
-  prop=${prop//_/.}
+  prop=$(echo "$var" | sed '
+s/^KAFKA_//
+s/\([[:alpha:]]\)/\L\1/g
+s/_/./g
+')
   echo "$prop = ${!var}" >> $confdir/server.properties
 done
 
