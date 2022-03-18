@@ -15,7 +15,7 @@ ENV PATH=$PATH:/opt/kafka/bin
 
 COPY init /init
 
-VOLUME /data
+VOLUME /var/lib/kafka/data
 
 EXPOSE 9092
 

@@ -16,7 +16,7 @@ ENV PATH=$PATH:$ZOOBINDIR
 
 COPY init /init
 
-VOLUME /data
+VOLUME /var/lib/zookeeper/data
 EXPOSE 2181
 STOPSIGNAL SIGTERM
 

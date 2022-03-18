@@ -15,7 +15,7 @@ Any of [the configuration parameters](https://zookeeper.apache.org/doc/r3.3.3/zo
 
 ### Volumes
 
-- `/data`
+- `/var/lib/zookeeper/data`
 
 ## Kafka
 
@@ -37,7 +37,7 @@ The following variables are common ones to change:
 
 ### Volumes
 
-- `/data`
+- `/var/lib/kafka/data`
 
 ## Example composition
 
@@ -48,7 +48,7 @@ services:
   zk:
     image: itzg/zookeeper
     volumes:
-      - zk:/data
+      - zk:/var/lib/zookeeper/data
   kafka-0:
     depends_on:
       - zk
@@ -59,9 +59,9 @@ services:
     ports:
       - "9092:9092"
     volumes:
-      - kafka:/data
+      - kafka-0:/var/lib/kafka/data
 
 volumes:
   zk: {}
-  kafka: {}
+  kafka-0: {}
 ```
