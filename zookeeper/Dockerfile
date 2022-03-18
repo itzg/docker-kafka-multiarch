@@ -12,9 +12,7 @@ FROM eclipse-temurin:17-jdk as main
 
 COPY --from=builder /opt /opt
 ENV ZOOBINDIR=/opt/zookeeper/bin
-
-COPY config /etc/zookeeper
-ENV ZOOCFGDIR=/etc/zookeeper
+ENV PATH=$PATH:$ZOOBINDIR
 
 COPY init /init
 

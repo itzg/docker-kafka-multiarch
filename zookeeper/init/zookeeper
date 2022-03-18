@@ -1,5 +1,26 @@
 #!/bin/bash
 
+: "${ZOOKEEPER_CLIENT_PORT:=2181}"
+: "${ZOOKEEPER_DATA_DIR:=/data}"
+: "${ZOOKEEPER_TICK_TIME:=1000}"
+: "${ZOOCFGDIR:=/etc/zookeeper}"
+
+mkdir -p "$ZOOCFGDIR"
+configFile=${ZOOCFGDIR}/zoo.cfg
+rm -f $configFile
+touch $configFile
+for var in $(compgen -v ZOOKEEPER_); do
+  prop=$(echo "$var" | sed '
+s/^ZOOKEEPER_//
+s/\([[:alpha:]]\)/\L\1/g
+s/_\([[:alpha:]]\)/\U\1/g
+')
+  echo "$prop = ${!var}" >> $configFile
+done
+
+echo ":::: Using config ::::"
+cat "$configFile"
+
 . bin/zkEnv.sh
 
 ZOOMAIN="org.apache.zookeeper.server.quorum.QuorumPeerMain"

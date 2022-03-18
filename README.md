@@ -7,7 +7,7 @@ This image is primarily intended to support [itzg/kafka](https://hub.docker.com/
 
 ### Environment variables
 
-None
+Any of [the configuration parameters](https://zookeeper.apache.org/doc/r3.3.3/zookeeperAdmin.html#sc_configuration) can be set by translating the property name from camelCase to SCREAMING_SNAKE_CASE and prefixing with "ZOOKEEPER_", such as `ZOOKEEPER_CLIENT_PORT`.
 
 ### Ports
 
