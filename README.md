@@ -1,4 +1,4 @@
-These images are intended to be configuration-compatible with the [confluentinc/cp-zookeeper](https://hub.docker.com/r/confluentinc/cp-zookeeper) and [confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka); however, unlike those images, these are built as multi-architecture images for both amd64 and arm64 in order to be compatible with Mac OS on M1 Apple Silicon and the usual x86 hardware.
+These images are intended to be configuration-compatible with the [confluentinc/cp-zookeeper](https://hub.docker.com/r/confluentinc/cp-zookeeper) and [confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka) images; however, unlike those images, these are built as multi-architecture images for both amd64 and arm64 in order to be compatible with Mac OS on M1 Apple Silicon and the usual x86 hardware.
 
 ## Zookeeper
 
@@ -68,7 +68,7 @@ services:
     image: itzg/kafka
     environment:
       KAFKA_BROKER_ID: "0"
-      KAFKA_ADVERTISED_LISTENERS: "EXTERNAL://localhost:9092,INTERNAL://kafka-0:9093"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092,BROKER://kafka-0:9093"
     ports:
       - "9092:9092"
     volumes:

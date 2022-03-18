@@ -11,7 +11,7 @@ services:
     image: itzg/kafka
     environment:
       KAFKA_BROKER_ID: "0"
-      KAFKA_ADVERTISED_LISTENERS: "EXTERNAL://localhost:9092,INTERNAL://kafka-0:9093"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092,BROKER://kafka-0:9093"
     ports:
       - "9092:9092"
     volumes:
