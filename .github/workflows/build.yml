@@ -40,7 +40,7 @@ jobs:
             type=pep440,pattern={{major}}.{{minor}},value=${{ matrix.version }}
             type=pep440,pattern={{major}},value=${{ matrix.version }}
             type=ref,event=branch,enable=false
-            type=raw,value=${{ matrix.version }}-${{ github.run_id }}
+            type=raw,value=${{ matrix.version }}-${{ github.run_number }}
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
