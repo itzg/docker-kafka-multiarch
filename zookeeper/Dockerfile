@@ -20,6 +20,7 @@ COPY init /init
 
 VOLUME /data
 EXPOSE 2181
+STOPSIGNAL SIGTERM
 
 WORKDIR /opt/zookeeper
 

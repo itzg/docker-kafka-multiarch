@@ -11,6 +11,7 @@ RUN mv /opt/kafka_2.13-${KAFKA_VERSION} /opt/kafka
 FROM eclipse-temurin:17-jdk as main
 
 COPY --from=builder /opt /opt
+ENV PATH=$PATH:/opt/kafka/bin
 
 COPY init /init
 
@@ -19,5 +20,6 @@ VOLUME /data
 EXPOSE 9092
 
 WORKDIR /opt/kafka
+STOPSIGNAL SIGTERM
 
 ENTRYPOINT ["/init/kafka"]

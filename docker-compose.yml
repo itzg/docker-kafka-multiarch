@@ -5,5 +5,7 @@ services:
     build:
       context: zookeeper
   kafka:
+    depends_on:
+      - zk
     build:
       context: kafka
