@@ -1,7 +1,8 @@
-
-# Apache Zookeeper and Kafka Docker Images
+These images are intended to be configuration-compatible with the [confluentinc/cp-zookeeper](https://hub.docker.com/r/confluentinc/cp-zookeeper) and [confluentinc/cp-kafka](https://hub.docker.com/r/confluentinc/cp-kafka); however, unlike those images, these are built as multi-architecture images for both amd64 and arm64 in order to be compatible with Mac OS on M1 Apple Silicon and the usual x86 hardware.
 
 ## Zookeeper
+
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/zookeeper?label=Docker%20Hub)
 
 This image is primarily intended to support [itzg/kafka](https://hub.docker.com/r/itzg/kafka) until non-zookeeper support is finalized.
 
@@ -18,6 +19,8 @@ Any of [the configuration parameters](https://zookeeper.apache.org/doc/r3.3.3/zo
 - `/var/lib/zookeeper/data`
 
 ## Kafka
+
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/kafka?label=Docker%20Hub)
 
 ### Environment variables
 
