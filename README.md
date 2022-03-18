@@ -2,7 +2,7 @@ These images are intended to be configuration-compatible with the [confluentinc/
 
 ## Zookeeper
 
-![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/zookeeper?label=Docker%20Hub)
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/zookeeper?label=Docker%20Hub)](https://hub.docker.com/r/itzg/zookeeper)
 
 This image is primarily intended to support [itzg/kafka](https://hub.docker.com/r/itzg/kafka) until non-zookeeper support is finalized.
 
@@ -20,7 +20,7 @@ Any of [the configuration parameters](https://zookeeper.apache.org/doc/r3.3.3/zo
 
 ## Kafka
 
-![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/kafka?label=Docker%20Hub)
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/kafka?label=Docker%20Hub)](https://hub.docker.com/r/itzg/kafka)
 
 ### Environment variables
 
