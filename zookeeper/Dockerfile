@@ -22,4 +22,4 @@ STOPSIGNAL SIGTERM
 
 WORKDIR /opt/zookeeper
 
-ENTRYPOINT ["/init/zookeeper"]
+CMD ["/init/zookeeper"]

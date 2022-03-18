@@ -10,6 +10,12 @@ This image is primarily intended to support [itzg/kafka](https://hub.docker.com/
 
 Any of [the configuration parameters](https://zookeeper.apache.org/doc/r3.3.3/zookeeperAdmin.html#sc_configuration) can be set by translating the property name from camelCase to SCREAMING_SNAKE_CASE and prefixing with "ZOOKEEPER_", such as `ZOOKEEPER_CLIENT_PORT`.
 
+The following variables are pre-declared:
+
+- `ZOOKEEPER_CLIENT_PORT` = 2181
+- `ZOOKEEPER_DATA_DIR` = /var/lib/zookeeper/data
+- `ZOOKEEPER_TICK_TIME` = 1000
+
 ### Ports
 
 - `2181`
@@ -26,13 +32,17 @@ Any of [the configuration parameters](https://zookeeper.apache.org/doc/r3.3.3/zo
 
 Any of [the broker configuration properties](https://kafka.apache.org/documentation/#brokerconfigs) can be set by translating the property name from dot-delimited to SCREAMING_SNAKE_CASE with a prefix of `KAFKA_`.
 
-The following variables are common ones to change:
+The following variables are pre-declared:
 
 - `KAFKA_ZOOKEEPER_CONNECT` = zk:2181
 - `KAFKA_BROKER_ID` = 0
-- `KAFKA_ADVERTISED_LISTENERS` = "EXTERNAL://localhost:9092,INTERNAL://${HOSTNAME}:9093"
-
-> NOTE: the protocol mappings `INTERNAL` and `EXTERNAL` are pre-declared with the `INTERNAL` identifier is used for inter-broker communication. The listener configuration is also pre-declared as "EXTERNAL://0.0.0.0:9092,INTERNAL://0.0.0.0:9093"
+- `KAFKA_LOG_DIRS` = /var/lib/kafka/data
+- `KAFKA_ADVERTISED_LISTENERS` = PLAINTEXT://localhost:9092,BROKER://${HOSTNAME}:9093
+- `KAFKA_LISTENERS` = PLAINTEXT://0.0.0.0:9092,BROKER://0.0.0.0:9093
+- `KAFKA_LISTENER_SECURITY_PROTOCOL_MAP` = BROKER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+- `KAFKA_INTER_BROKER_LISTENER_NAME` = BROKER
+- `KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR` = 1
+- `KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR` = 1
 
 ### Ports
 

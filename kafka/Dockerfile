@@ -13,6 +13,8 @@ FROM eclipse-temurin:17-jdk as main
 COPY --from=builder /opt /opt
 ENV PATH=$PATH:/opt/kafka/bin
 
+COPY cp-compat /etc/confluent/docker
+
 COPY init /init
 
 VOLUME /var/lib/kafka/data
@@ -22,4 +24,4 @@ EXPOSE 9092
 WORKDIR /opt/kafka
 STOPSIGNAL SIGTERM
 
-ENTRYPOINT ["/init/kafka"]
+CMD ["/init/kafka"]
