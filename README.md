@@ -4,7 +4,7 @@ These images are intended to be configuration-compatible with the [confluentinc/
 
 [![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/zookeeper?label=Image:%20itzg/zookeeper)](https://hub.docker.com/r/itzg/zookeeper)
 
-This image is primarily intended to support [itzg/kafka](https://hub.docker.com/r/itzg/kafka) until non-zookeeper support is finalized.
+This image is primarily intended to support [itzg/kafka](https://hub.docker.com/r/itzg/kafka) while [KRaft support is being finalized](https://blogs.apache.org/kafka/entry/what-s-new-in-apache6).
 
 ### Environment variables
 
