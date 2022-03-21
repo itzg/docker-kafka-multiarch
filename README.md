@@ -25,6 +25,10 @@ The following variables are pre-declared:
 
 - `/var/lib/zookeeper/data`
 
+### Healthcheck
+
+The image comes with a health check script, `/init/healthcheck`, that is pre-configured for non-Kubernetes environments.
+
 ## Kafka
 
 [![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/kafka?label=Image:%20itzg/kafka)](https://hub.docker.com/r/itzg/kafka)
@@ -55,6 +59,10 @@ The following variables are pre-declared:
 ### Volumes
 
 - `/var/lib/kafka/data`
+
+### Healthcheck
+
+The image comes with a health check script, `/init/healthcheck`, that is pre-configured for non-Kubernetes environments.
 
 ## Example composition
 

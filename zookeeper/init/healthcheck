@@ -1,0 +1,16 @@
+#!/bin/bash
+
+function portsToCheck() {
+  awk '/^clientPort/ {
+  split($0, kv, "[[:space:]]=[[:space:]]*");
+  print kv[2];
+}' /etc/zookeeper/zoo.cfg
+}
+
+portsToCheck | read -a ports
+for port in "${ports[@]}"; do
+  if ! echo '' > "/dev/tcp/localhost/$port"; then
+    exit 1
+  fi
+done
+
