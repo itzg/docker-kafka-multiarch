@@ -2,7 +2,7 @@ These images are intended to be configuration-compatible with the [confluentinc/
 
 ## Zookeeper
 
-[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/zookeeper?label=Docker%20Hub)](https://hub.docker.com/r/itzg/zookeeper)
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/zookeeper?label=Image:%20itzg/zookeeper)](https://hub.docker.com/r/itzg/zookeeper)
 
 This image is primarily intended to support [itzg/kafka](https://hub.docker.com/r/itzg/kafka) until non-zookeeper support is finalized.
 
@@ -26,7 +26,7 @@ The following variables are pre-declared:
 
 ## Kafka
 
-[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/kafka?label=Docker%20Hub)](https://hub.docker.com/r/itzg/kafka)
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/itzg/kafka?label=Image:%20itzg/kafka)](https://hub.docker.com/r/itzg/kafka)
 
 ### Environment variables
 
@@ -43,6 +43,9 @@ The following variables are pre-declared:
 - `KAFKA_INTER_BROKER_LISTENER_NAME` = BROKER
 - `KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR` = 1
 - `KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR` = 1
+- `BROKER_HEAP_OPTS` = -Xmx1G
+
+> NOTE: variables referenced in the Apache wrapper scripts are not converted into broker properties.
 
 ### Ports
 

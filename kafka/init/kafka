@@ -12,22 +12,64 @@ mkdir -p $confdir
 : "${KAFKA_INTER_BROKER_LISTENER_NAME:=BROKER}"
 : "${KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR:=1}"
 : "${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:=1}"
+: "${KAFKA_LOG4J_LOGGERS:=kafka.controller=INFO,state.change.logger=INFO}"
+: "${BROKER_HEAP_OPTS:=-Xmx1G}"
 
-rm -f $confdir/server.properties
-touch $confdir/server.properties
-for var in $(compgen -v KAFKA_); do
-  prop=$(echo "$var" | sed '
-s/^KAFKA_//
-s/\([[:alpha:]]\)/\L\1/g
-s/_/./g
-')
-  echo "$prop = ${!var}" >> $confdir/server.properties
-done
+function processServerProperties() {
+  rm -f $serverPropsFile
+  touch $serverPropsFile
+  excludedVars=(
+    KAFKA_LOG4J_LOGGERS
+  )
+  for var in $(compgen -v KAFKA_); do
+    if grep -q "$var" bin/*.sh; then
+      # skip ones that the wrapper scripts are using
+      continue
+    fi
+    for exclude in "${excludedVars[@]}"; do
+      if [[ $var == $exclude ]]; then
+        continue 2
+      fi
+    done
 
-echo ":::: Using properties ::::"
-cat $confdir/server.properties
+    prop=$(echo "$var" | sed '
+  s/^KAFKA_//
+  s/\([[:alpha:]]\)/\L\1/g
+  s/_/./g
+  ')
+    echo "$prop = ${!var}" >> $serverPropsFile
+  done
 
-exec bin/kafka-server-start.sh $confdir/server.properties "$@"
+  echo ":::: Broker properties configured in $serverPropsFile"
+}
+
+function processLog4jProperties() {
+  # Edit/delete any standard properties
+  sed "
+    /^log4j.rootLogger=/ c log4j.rootLogger=INFO, stdout
+    /^log4j.logger./ d
+    /^log4j.additivity./ d
+  " config/log4j.properties > "$log4jPropsFile"
+
+  IFS=, read -a loggers <<< "$KAFKA_LOG4J_LOGGERS"
+  for logger in "${loggers[@]}"; do
+    # each entry is of the form logger=LEVEL
+    echo "log4j.logger.$logger" >> "$log4jPropsFile"
+  done
+
+  echo ":::: Log4j properties configured in $log4jPropsFile"
+}
+
+serverPropsFile="$confdir/server.properties"
+processServerProperties
+
+log4jPropsFile="$confdir/log4j.properties"
+processLog4jProperties
+
+# Broker specific overrides to avoid applying to exec'ed calls
+export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$log4jPropsFile"
+export KAFKA_HEAP_OPTS="${BROKER_HEAP_OPTS}"
+exec bin/kafka-server-start.sh $serverPropsFile "$@"
 
 
 

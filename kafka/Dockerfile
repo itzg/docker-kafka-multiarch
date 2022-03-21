@@ -1,12 +1,14 @@
-
 FROM eclipse-temurin:17-jdk as builder
 
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y \
+      curl \
+    && apt-get clean
+
 ARG KAFKA_VERSION=3.1.0
-ADD https://dlcdn.apache.org/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz /packages/
-
-RUN tar -C /opt -xf /packages/kafka_2.13-${KAFKA_VERSION}.tgz
-
-RUN mv /opt/kafka_2.13-${KAFKA_VERSION} /opt/kafka
+RUN curl -fsSL -o /tmp/kafka.tgz https://dlcdn.apache.org/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz \
+    && tar -C /opt -xf /tmp/kafka.tgz \
+    && mv /opt/kafka_2.13-${KAFKA_VERSION} /opt/kafka
 
 FROM eclipse-temurin:17-jdk as main
 

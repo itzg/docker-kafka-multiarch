@@ -9,9 +9,6 @@ services:
     depends_on:
       - zk
     image: itzg/kafka
-    environment:
-      KAFKA_BROKER_ID: "0"
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092,BROKER://kafka-0:9093"
     ports:
       - "9092:9092"
     volumes:

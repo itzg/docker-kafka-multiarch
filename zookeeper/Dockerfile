@@ -1,12 +1,15 @@
 
 FROM eclipse-temurin:17-jdk as builder
 
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y \
+      curl \
+    && apt-get clean
+
 ARG ZK_VERSION=3.8.0
-ADD https://dlcdn.apache.org/zookeeper/zookeeper-${ZK_VERSION}/apache-zookeeper-${ZK_VERSION}-bin.tar.gz /packages/
-
-RUN tar -C /opt -xf /packages/apache-zookeeper-${ZK_VERSION}-bin.tar.gz
-
-RUN mv /opt/apache-zookeeper-${ZK_VERSION}-bin /opt/zookeeper
+RUN curl  -fsSL -o /tmp/zookeeper.tgz https://dlcdn.apache.org/zookeeper/zookeeper-${ZK_VERSION}/apache-zookeeper-${ZK_VERSION}-bin.tar.gz \
+    && tar -C /opt -xf /tmp/zookeeper.tgz \
+    && mv /opt/apache-zookeeper-${ZK_VERSION}-bin /opt/zookeeper
 
 FROM eclipse-temurin:17-jdk as main
 
