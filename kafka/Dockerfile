@@ -26,4 +26,6 @@ EXPOSE 9092
 WORKDIR /opt/kafka
 STOPSIGNAL SIGTERM
 
+HEALTHCHECK --start-period=5s --interval=10s --retries=3 CMD /init/healthcheck
+
 CMD ["/init/kafka"]

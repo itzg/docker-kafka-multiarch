@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function portsToCheck() {
+  awk '/^listeners/ {
+  split($0, kv, "[[:space:]]=[[:space:]]*");
+  split(kv[2], addrs, ",");
+  for (k in addrs) {
+    split(addrs[k], parts, "://");
+    split(parts[2], hostPort, ":");
+    if (hostPort[1] == "0.0.0.0") {
+      print hostPort[2];
+    }
+  }
+}' /etc/kafka/server.properties
+}
+
+portsToCheck | read -a ports
+for port in "${ports[@]}"; do
+  if ! echo '' > "/dev/tcp/localhost/$port"; then
+    exit 1
+  fi
+done
+
