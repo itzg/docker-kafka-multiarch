@@ -16,6 +16,10 @@ The following variables are pre-declared:
 - `ZOOKEEPER_DATA_DIR` = /var/lib/zookeeper/data
 - `ZOOKEEPER_TICK_TIME` = 1000
 
+The following variables used in the Apache wrapper script can also be set:
+
+- `SERVER_JVMFLAGS`
+
 ### Ports
 
 - `2181`
