@@ -5,6 +5,10 @@
 : "${ZOOKEEPER_TICK_TIME:=1000}"
 : "${ZOOCFGDIR:=/etc/zookeeper}"
 
+# Used by wrapper script
+: "${SERVER_JVMFLAGS:=-Xmx256m}"
+export SERVER_JVMFLAGS
+
 mkdir -p "$ZOOCFGDIR"
 configFile=${ZOOCFGDIR}/zoo.cfg
 rm -f $configFile
