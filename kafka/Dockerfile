@@ -14,6 +14,7 @@ FROM eclipse-temurin:17-jdk as main
 
 COPY --from=builder /opt /opt
 ENV PATH=$PATH:/opt/kafka/bin
+RUN for s in /opt/kafka/bin/*.sh; do ln -s "$s" "${s%.sh}"; done
 
 COPY cp-compat /etc/confluent/docker
 
