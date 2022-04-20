@@ -66,5 +66,5 @@ jobs:
           # ensure latest base image is used
           pull: true
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha,scope=${{ matrix.image }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.image }}
+          cache-from: type=gha,scope=${{ matrix.image }}-${{ matrix.version }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}-${{ matrix.version }}
