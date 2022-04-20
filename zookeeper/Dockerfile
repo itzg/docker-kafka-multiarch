@@ -6,10 +6,10 @@ RUN DEBIAN_FRONTEND=noninteractive \
       curl \
     && apt-get clean
 
-ARG ZK_VERSION=3.8.0
-RUN curl  -fsSL -o /tmp/zookeeper.tgz https://dlcdn.apache.org/zookeeper/zookeeper-${ZK_VERSION}/apache-zookeeper-${ZK_VERSION}-bin.tar.gz \
+ARG UPSTREAM_VERSION=3.8.0
+RUN curl  -fsSL -o /tmp/zookeeper.tgz https://dlcdn.apache.org/zookeeper/zookeeper-${UPSTREAM_VERSION}/apache-zookeeper-${UPSTREAM_VERSION}-bin.tar.gz \
     && tar -C /opt -xf /tmp/zookeeper.tgz \
-    && mv /opt/apache-zookeeper-${ZK_VERSION}-bin /opt/zookeeper
+    && mv /opt/apache-zookeeper-${UPSTREAM_VERSION}-bin /opt/zookeeper
 
 FROM eclipse-temurin:17-jdk as main
 
