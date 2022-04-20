@@ -90,3 +90,29 @@ volumes:
   zk: {}
   kafka-0: {}
 ```
+
+## Example usage with [testcontainers](https://www.testcontainers.org/modules/kafka/)
+
+```java
+@Testcontainers
+public class TestSomethingWithKafka {
+
+    private static final Network network = Network.newNetwork();
+
+    @Container
+    private static final GenericContainer zkContainer = new GenericContainer("itzg/zookeeper")
+        .withNetwork(network)
+        .withNetworkAliases("zk");
+
+    @Container
+    private static final KafkaContainer kafkaContainer = new KafkaContainer(
+        DockerImageName.parse("itzg/kafka:3.1.0")
+            .asCompatibleSubstituteFor("confluentinc/cp-kafka")
+    )
+        .dependsOn(zkContainer)
+        .withNetwork(network)
+        .withExternalZookeeper("zk:2181");
+
+    // ...setup kafka client with "bootstrap.servers" set to kafkaContainer.getBootstrapServers()
+}
+```
