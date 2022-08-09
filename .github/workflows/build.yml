@@ -23,7 +23,7 @@ jobs:
           - kafka
         include:
           - image: kafka
-            version: 3.1.0
+            version: 3.2.1
           - image: zookeeper
             version: 3.8.0
     runs-on: ubuntu-20.04
